@@ -1,0 +1,86 @@
+import java.util.*;
+
+public class EmployeeTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		System.out.println("Welcome to Employee Administration");
+		char ch;
+		do {
+			System.out.println("Choose the options from below:");
+			System.out.println("1. Add the Employee");
+			System.out.println("2. Display All Employee");
+			System.out.println("3: Delete Employee based employeeid ");
+			System.out.println("4: Delete Employee based on Name");
+			System.out.println("5: Find employee based on Employee Id");
+			System.out.println("6: Find employee based on Employee name");
+			System.out.println("7: Change employee name based on Id");
+
+			Scanner sn = new Scanner(System.in);
+			int option = sn.nextInt();
+			switch (option) {
+			case 1:
+				Employee emp = new Employee();
+				System.out.println("Enter id name and salary");
+				int id;
+				String name;
+				double salary;
+				id = sn.nextInt();
+				name = sn.next();
+				salary = sn.nextDouble();
+				emp.setEmpid(id);
+				emp.setEname(name);
+				emp.setSalary(salary);
+				ManageEmployees.addEmployee(emp);
+				break;
+			case 2:
+				ManageEmployees.displayEmployees();
+				break;
+			case 3:
+				System.out.println("enter the empid need to delete");
+				int empid = sn.nextInt();
+				int pos = ManageEmployees.findEmp_onId(empid);
+				if (pos >= 0)
+					ManageEmployees.deleteEmpById(pos);
+				else
+					System.out.println("not found the employee");
+				break;
+			case 4:
+				System.out.println("enter the empname need to delete");
+				String empname = sn.next();
+				ManageEmployees.findEmp_onName(empname);
+				break;
+			case 5:
+				System.out.println("enter the empid need to find");
+				empid = sn.nextInt();
+				pos = ManageEmployees.findEmp_onId(empid);
+				if (pos >= 0)
+					System.out.println("Found the employee at Position : " + pos);
+				else
+					System.out.println("not found the employee");
+				break;
+			case 6:
+				System.out.println("enter the empname need to find");
+				empname = sn.next();
+				ManageEmployees.findEmpByName(empname);
+				break;
+			case 7:
+				System.out.println("enter the empId need to change name");
+				empid = sn.nextInt();
+				String name1 = sn.next();
+				int pos1 = ManageEmployees.findEmp_onId(empid);
+				if (pos1 >= 0)
+					ManageEmployees.changeName_Id(pos1, name1);
+				else
+					System.out.println("not found the employee");
+				break;
+			default:
+				System.out.println("enter the valid option");
+			}
+			System.out.println("Do you want to continue");
+			ch = sn.next().charAt(0);
+		} while (ch == 'y' || ch == 'Y');
+	}
+
+}

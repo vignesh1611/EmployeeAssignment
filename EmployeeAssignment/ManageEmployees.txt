@@ -1,0 +1,109 @@
+
+public class ManageEmployees {
+
+	static Employee[] employeeList = new Employee[50];
+	static Employee[] employeeList1 = new Employee[50];
+	static int count = 0;
+	static String emp_Name;
+
+	// Add employees
+	public static void addEmployee(Employee employee) {
+		int k = 0;
+		employeeList1[count] = employee;
+		for (int i = 0; i <= count; i++) {
+			emp_Name = employeeList1[i].getEname();
+		}
+		for (int i = 0; i < count; i++) {
+			if (employeeList1[i].getEname().equals(emp_Name))
+				k++;
+		}
+		if (k == 0) {
+			employeeList[count] = employee;
+			count++;
+		} else
+			System.out.println("Name is already present");
+	}
+
+	// Display Employee details
+	public static void displayEmployees() {
+		for (int i = 0; i < count; i++) {
+			System.out.println(employeeList[i]);
+		}
+	}
+
+	// Find Employee using id
+	public static int findEmp_onId(int empid) {
+		for (int i = 0; i < count; i++) {
+			if (employeeList[i].getEmpid() == empid) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	// Deleting Employee by using employee Name
+	public static Employee findEmp_onName(String empname) {
+		Employee[] empSortName = new Employee[employeeList.length - 1];
+		int index = 0;
+		for (int i = 0; i < count; i++) {
+			if (employeeList[i].getEname().equals(empname)) {
+				index = i;
+			}
+		}
+
+		for (int j = 0; j < count - 1; j++) {
+			if (j < index) {
+				empSortName[j] = employeeList[j];
+			} else if (j >= index) {
+				empSortName[j] = employeeList[j + 1];
+			}
+		}
+
+		for (int k = 0; k < count - 1; k++) {
+			System.out.println(empSortName[k]);
+			employeeList[k] = empSortName[k];
+		}
+		count--;
+		return null;
+	}
+
+	// Deleting Employee by using employee Id
+	public static int deleteEmpById(int pos) {
+		Employee[] empSortList = new Employee[employeeList.length - 1];
+		for (int i = 0; i < count - 1; i++) {
+			if (i < pos) {
+				empSortList[i] = employeeList[i];
+			} else if (i >= pos) {
+				empSortList[i] = employeeList[i + 1];
+			}
+		}
+		for (int i = 0; i < count - 1; i++) {
+			System.out.println(empSortList[i]);
+			employeeList[i] = empSortList[i];
+		}
+		count--;
+		return pos;
+	}
+
+	// Find employee by name
+	public static Employee findEmpByName(String empname) {
+		int index = 0;
+		for (int i = 0; i < count; i++) {
+			if (employeeList[i].getEname().equals(empname)) {
+				index = i;
+				System.out.println("Employee name found at position : " + index);
+			}
+		}
+		return null;
+	}
+
+	// Change name w.r.t. Id
+	public static String changeName_Id(int empid, String name1) {
+		for (int i = 0; i < count; i++) {
+			if (employeeList[i].getEmpid() == empid) {
+				employeeList[empid].setEname(name1);
+			}
+		}
+		return name1;
+		}	
+}
